@@ -1,0 +1,23 @@
+name: job3
+desc: job3
+#每隔1分钟执行一次job
+interval: 5s
+
+#源
+source:
+  url: http://127.0.0.1:8082/api/job
+  type: json
+
+#映射
+mapping:
+  tableName: job3
+  fields:
+    - name: county3
+      type: String
+      length: 64
+      path: $..name
+    - name: count3
+      type: Integer
+      path: $..id
+
+jsCode: var county3 = '2' + county3; var count3 = 20 + count3;

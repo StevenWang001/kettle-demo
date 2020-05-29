@@ -35,9 +35,8 @@ public class HttpJsonInputTest {
 
     public static void jsonTest() throws KettleException {
         try {
-            System.setProperty("KETTLE_JNDI_ROOT", JNDI_CONFIG);
+//            System.setProperty("KETTLE_JNDI_ROOT", JNDI_CONFIG);
             KettleEnvironment.init();
-            KettleDatabaseRepository repository = new KettleDatabaseRepository();
             TransMeta transMeta = generateTransformation();
             System.out.println("executing transformation");
             Trans transformation = new Trans(transMeta);
@@ -146,22 +145,22 @@ public class HttpJsonInputTest {
             scriptAge.setDefault();
             String[] inputField = {"name", "age"};
             scriptAge.setFieldname(inputField);
-            String[] outputField = {"name2", "age2"};
-            scriptAge.setRename(outputField);
-            int[] lengths = {inputField[0].length(), inputField[1].length()};
-            scriptAge.setLength(lengths);
-            int[] precisions = {-1, -1};
-            scriptAge.setPrecision(precisions);
+//            String[] outputField = {"name2", "age2"};
+//            scriptAge.setRename(outputField);
+//            int[] lengths = {inputField[0].length(), inputField[1].length()};
+//            scriptAge.setLength(lengths);
+//            int[] precisions = {-1, -1};
+//            scriptAge.setPrecision(precisions);
 
 
-            scriptAge.setReplace(new boolean[]{false, false});
+            scriptAge.setReplace(new boolean[]{true, true});
             int[] types = {ValueMetaInterface.TYPE_STRING, ValueMetaInterface.TYPE_INTEGER};
             scriptAge.setType(types);
 
             ScriptValuesScript expression1 = new ScriptValuesScript();
             expression1.setScriptName("filed1-transformation");
             expression1.setScriptType(ScriptValuesScript.TRANSFORM_SCRIPT);
-            expression1.setScript("var name = '2' + name; var age = 20 + age;");
+            expression1.setScript("var name = '2' + name; print('xxxxxxxxxx' + name); var age = 20 + age;");
 
             ScriptValuesScript scripts[] = {expression1};
             scriptAge.setJSScripts(scripts);
@@ -172,24 +171,25 @@ public class HttpJsonInputTest {
             transMeta.addStep(scriptStep);
 
             DatabaseMeta dbMeta = new DatabaseMeta();
+            dbMeta.setDefault();
             dbMeta.setName("dbOutput");
-
-            dbMeta.setUsername("root");
+//
+            dbMeta.setUsername("postgres");
             dbMeta.setPassword("123456");
             dbMeta.setHostname("localhost");
-            dbMeta.setDBPort("3306");
-            dbMeta.setDBName("demo");
-            dbMeta.setDatabaseType("MySQL");
-
-            dbMeta.setAccessType(DatabaseMeta.TYPE_ACCESS_JNDI);
+            dbMeta.setDBPort("5432");
+            dbMeta.setDBName("tianrang");
+            dbMeta.setDatabaseType("PostgreSQL");
+//
+//            dbMeta.setAccessType(DatabaseMeta.TYPE_ACCESS_JNDI);
 
             TableOutputMeta tableOutputMeta = new TableOutputMeta();
             tableOutputMeta.setDatabaseMeta(dbMeta);
             tableOutputMeta.setCommitSize(10);
             String[] tableField = {"name", "age"};
-            String[] tableField2 = {"name2", "age2"};
+//            String[] tableField2 = {"name2", "age2"};
             tableOutputMeta.setFieldDatabase(tableField);
-            tableOutputMeta.setFieldStream(tableField2);
+            tableOutputMeta.setFieldStream(tableField);
             tableOutputMeta.setSpecifyFields(true);
             tableOutputMeta.setTableName("csv_input");
             StepMeta dbStep = new StepMeta("InsertUpdate", "dbOutput", tableOutputMeta);

@@ -1,0 +1,42 @@
+name: job1
+desc: traffic flow data ingestion job
+#每隔1分钟执行一次job
+interval: 10s
+
+#源
+source:
+  url: http://127.0.0.1:8082/api/job
+  type: json
+
+#映射
+mapping:
+  tableName: traffic_flow_data
+  fields:
+    - name: county
+      type: String
+      length: 64
+      path: $..name
+    - name: count
+      type: Integer
+      path: $..id
+
+jsCode: var county = '2' + county; var count = 20 + count;
+
+
+indicators:
+  - name: indicator1
+    desc: xx
+    sql: select sum(count) as count_all from traffic_flow_data;
+    interval: 20s
+    tableName: indicator1
+    fields:
+      - name: count_all
+        type: Integer
+
+
+
+
+
+
+
+

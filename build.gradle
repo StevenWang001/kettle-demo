@@ -22,17 +22,17 @@ repositories {
 
 dependencies {
     implementation 'pentaho-kettle:kettle-core:9.0.0.3-568'
-    implementation 'pentaho-kettle:kettle-engine:9.0.0.3-568'
+    implementation ('pentaho-kettle:kettle-engine:9.0.0.3-568') {
+        exclude group: 'javax.servlet'
+    }
     implementation 'org.pentaho.di.plugins:pdi-core-plugins-impl:9.0.0.3-568'
-    implementation 'org.apache.httpcomponents:httpclient:4.5.9'
-    implementation 'org.apache.httpcomponents:httpcore:4.4.11'
-    implementation 'mysql:mysql-connector-java:8.0.20'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.pentaho.di.plugins:kettle-json-plugin-core:9.1.0.0-SNAPSHOT'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
-    implementation 'org.pentaho.di.plugins:kettle-json-plugin-core:9.1.0.0-SNAPSHOT'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.26'
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.2'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

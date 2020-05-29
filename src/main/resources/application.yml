@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: kettle demo
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tianrang
+    username: postgres
+    password: 123456
+server:
+  port: 8090
