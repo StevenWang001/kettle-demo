@@ -20,7 +20,7 @@ mapping:
       type: Integer
       path: $..id
 
-jsCode: var county = '2' + county; var count = 20 + count;
+jsCode: var county = county; if (county == 'high-tech zone') {county = '高新区';} else { county = '武侯区';} var count = 20 + count;
 
 
 indicators:

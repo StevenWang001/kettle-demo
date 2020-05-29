@@ -114,7 +114,6 @@ public class HttpJson2DbTrans implements Runnable {
             jsonInputMeta.allocate(1, jobFieldsNum);
             jsonInputMeta.setInFields(true);
             jsonInputMeta.setFieldValue("result");
-            jsonInputMeta.setRowLimit(1);
 
             JsonInputField[] fields = new JsonInputField[jobFieldsNum];
             int i = 0;

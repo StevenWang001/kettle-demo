@@ -21,3 +21,13 @@ mapping:
       path: $..id
 
 jsCode: var county2 = '2' + county2; var count2 = 20 + count2;
+
+indicators:
+  - name: indicator1
+    desc: xx
+    sql: select sum(count) as count_all from traffic_flow_data;
+    interval: 20s
+    tableName: indicator1
+    fields:
+      - name: count_all
+        type: Integer
